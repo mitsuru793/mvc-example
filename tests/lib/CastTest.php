@@ -20,30 +20,30 @@ class CastTest extends TestCase
     public function testTo()
     {
         $data = [
-            // [arg1, expected, arg2]
-            ['int',   1,     1],
-            ['int',   1,     1.6],
-            ['int',   1,     '1'],
-            ['double', 0.0,   0],
-            ['double', 1.6,   '1.6'],
-            ['bool',  true,  true],
-            ['bool',  true,  1],
-            ['bool',  true,  '1'],
-            ['bool',  false, false],
-            ['bool',  false, ''],
-            ['bool',  false, 0],
-            ['bool',  false, null],
-            ['string', '',''],
-            ['string', '1','1'],
-            ['string', '1',1],
-            ['string', '1',true],
-            ['string', '',false],
-            ['string', '',null]
+            // [expected, arg1, arg2]
+            [1,     'int',    1],
+            [1,     'int',    1.6],
+            [1,     'int',    '1'],
+            [0.0,   'double', 0],
+            [1.6,   'double', '1.6'],
+            [true,  'bool',   true],
+            [true,  'bool',   1],
+            [true,  'bool',   '1'],
+            [false, 'bool',   false],
+            [false, 'bool',   ''],
+            [false, 'bool',   0],
+            [false, 'bool',   null],
+            ['',    'string', ''],
+            ['1',   'string', '1'],
+            ['1',   'string', 1],
+            ['1',   'string', true],
+            ['',    'string', false],
+            ['',    'string', null]
         ];
 
         foreach ($data as $d) {
-            $expected = $d[1];
-            $actual = MyCast::to($d[0], $d[2]);
+            $expected = $d[0];
+            $actual = MyCast::to($d[1], $d[2]);
             $this->assertSame($expected, $actual, implode(',', $d));
         }
 
