@@ -3,6 +3,7 @@
 namespace Lib;
 
 use DateTime;
+use InvalidArgumentException;
 
 class Cast
 {
@@ -27,6 +28,9 @@ class Cast
                 break;
             case 'date':
                 $casted = static::toDate($value);
+                break;
+            default:
+                throw new InvalidArgumentException("Arg1: {$type} is not a defined case.");
                 break;
         }
         return $casted;

@@ -5,6 +5,7 @@ namespace Tests;
 use PHPUnit\Framework\TestCase;
 
 use DateTime;
+use InvalidArgumentException;
 use Lib\Cast;
 
 class MyCast extends Cast
@@ -56,5 +57,12 @@ class CastTest extends TestCase
         $actual = MyCast::to('date', $timeStr);
         $this->assertSame('2016-08-04 19:30:21', $actual->format('Y-m-d H:i:s'));
         $this->assertSame('+09:00', $actual->getTimezone()->getName());
+
+        try {
+            MyCast::to('illegal', '1');
+            $this->fail('No Exception');
+        } catch (InvalidArgumentException $e) {
+            $this->assertEquals('Arg1: illegal is not a defined case.', $e->getMessage());
+        }
     }
 }
